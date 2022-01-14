@@ -3,39 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_Auth extends CI_Model
 {
-	public function check_username($username) {
-		$this->db->where('userName', $username);
-		$row = $this->db->get('users')->num_rows();
-		if($row > 0){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	public function check_phone($phone) {
-		$this->db->where('userPhone', $phone);
-		$row = $this->db->get('users')->num_rows();
-		if($row > 0){
-			return true;
-		}else{
-			return false;
-		}
-	}
-	public function check_email($email) {
-		$this->db->where('userEmail', $email);
-		$row = $this->db->get('users')->num_rows();
-		if($row > 0){
-			return true;
-		}else{
-			return false;
-		}
-	}
+	
 	public function check_register_data($username, $email, $phone){
-		if(
-			$this->check_username($username) == true ||
-			$this->check_email($email) == true ||
-			$this->check_phone($phone) == true
-		) {
+		$this->db->where('userName', $username);
+		$this->db->or_where('userEmail', $email);
+		$this->db->or_where('userPhone', $phone);
+		$row = $this->db->get('users')->num_rows();
+		if($row > 0){
 			return true;
 		}else{
 			return false;
