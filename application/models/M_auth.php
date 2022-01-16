@@ -23,7 +23,6 @@ class M_Auth extends CI_Model
 		if($this->check_register_data($username, $email, $phone)){
 			$res = [
 				'status' => false,
-				'id' => null,
 				'message' => 'Username, email atau phone telah terdaftar',
 			];
 			return $res;
@@ -54,7 +53,6 @@ class M_Auth extends CI_Model
 		}else{
 			$res = [
 				'status' => false,
-				'id' => null,
 				'message' => 'Mohon maaf, terjadi kesalahan!',
 			];
 			return $res;
@@ -66,7 +64,6 @@ class M_Auth extends CI_Model
 		if(!$this->check_register_data($username, $username, $username)){
 			$res = [
 				'status' => false,
-				'id' => null,
 				'message' => 'Username, email atau phone tidak ditemukan',
 			];
 			return $res;

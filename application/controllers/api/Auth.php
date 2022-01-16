@@ -11,7 +11,6 @@ class Auth extends REST_Controller
 		parent::__construct();
 		$this->load->model('M_auth');
 	}
-
 	public function auth_register_post() {
 		try {
 			$this->form_validation->set_data($this->post());
@@ -22,7 +21,7 @@ class Auth extends REST_Controller
 			if (!$this->form_validation->run()) {
 				$message = [
 					'status' => false,
-					'message' => 'Lengkapi semua field! dengan benar',
+					'message' => 'Lengkapi semua field dengan benar!',
 				];
 				$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
 			}else{
@@ -51,7 +50,6 @@ class Auth extends REST_Controller
 			$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
 		}
 	}
-
 	public function auth_login_post() {
 		try {
 			$this->form_validation->set_data($this->post());
