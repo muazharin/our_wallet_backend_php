@@ -11,9 +11,9 @@ class Wallet extends REST_Controller
 		parent::__construct();
 		$this->load->model('M_wallet');
 	}
-	public function get_wallet_get($id = null){
+	public function get_wallet_get(){
 		try {
-			$result = $this->M_wallet->get_wallet($id);
+			$result = $this->M_wallet->get_wallet();
 			if($result['status']){
 				$message = [
 					'status'=> true,
@@ -74,7 +74,7 @@ class Wallet extends REST_Controller
 			$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
 		}
 	}
-	public function update_wallet_post($id = null){
+	public function update_wallet_post(){
 		try {
 			$this->form_validation->set_data($this->post());
 			$this->form_validation->set_rules('userId', 'User Id', 'required|trim|xss_clean');
@@ -87,7 +87,7 @@ class Wallet extends REST_Controller
 				];
 				$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
 			}else{
-				$result = $this->M_wallet->update_wallet($id);
+				$result = $this->M_wallet->update_wallet();
 				if($result['status']){
 					$message = [
 						'status' => true,
@@ -111,7 +111,7 @@ class Wallet extends REST_Controller
 			$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
 		}
 	}
-	public function add_member_wallet_post($id = null){
+	public function add_member_wallet_post(){
 		try {
 			$this->form_validation->set_data($this->post());
 			$this->form_validation->set_rules('userId', 'User Id', 'required|trim|xss_clean');
@@ -123,7 +123,7 @@ class Wallet extends REST_Controller
 				];
 				$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
 			}else{
-				$result = $this->M_wallet->add_member_wallet($id);
+				$result = $this->M_wallet->add_member_wallet();
 				if($result['status']){
 					$message = [
 						'status' => true,
@@ -147,9 +147,9 @@ class Wallet extends REST_Controller
 			$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
 		}
 	}
-	public function get_user_to_wallet_get($id = null){
+	public function get_user_to_wallet_get(){
 		try {
-			$result = $this->M_wallet->get_user_to_wallet($id);
+			$result = $this->M_wallet->get_user_to_wallet();
 			if($result['status']){
 				$message = [
 					'status'=> true,
@@ -197,7 +197,7 @@ class Wallet extends REST_Controller
 			$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
 		}
 	}
-	public function confirm_member_wallet_post($id = null){
+	public function confirm_member_wallet_post(){
 		try {
 			$this->form_validation->set_data($this->post());
 			$this->form_validation->set_rules('confirm', 'Confirm', 'required|trim|xss_clean');
@@ -208,7 +208,7 @@ class Wallet extends REST_Controller
 				];
 				$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
 			}else{
-				$result = $this->M_wallet->confirm_member_wallet($id);
+				$result = $this->M_wallet->confirm_member_wallet();
 				if($result['status']){
 					$message = [
 						'status' => true,
@@ -232,9 +232,9 @@ class Wallet extends REST_Controller
 			$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
 		}
 	}
-	public function invited_check_wallet_get($id = null){
+	public function invited_check_wallet_get(){
 		try {
-			$result = $this->M_wallet->invited_check_wallet($id);
+			$result = $this->M_wallet->invited_check_wallet();
 			if($result['status']){
 				$message = [
 					'status'=> true,

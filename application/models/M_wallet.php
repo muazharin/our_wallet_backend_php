@@ -3,10 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_Wallet extends CI_Model
 {
-	public function get_wallet($id){
+	public function get_wallet(){
+		$id = $this->input->get('userId');
 		$this->db->select('*');
 		$this->db->from('wallet');
 		$this->db->join('our_wallet','our_wallet.owWalletId = wallet.walletId', 'left');
+		$this->db->where('wallet.walletIsActive', true);
 		$this->db->where('our_wallet.owUserId', $id);
 		$result = $this->db->get();
 		if($result){
@@ -59,7 +61,9 @@ class M_Wallet extends CI_Model
 		}
 
 	}
-	public function update_wallet($id){
+	public function update_wallet(){
+		$id = $this->input->get('walletId');
+		
 		$this->db->where('walletId', $id);
 		$result = $this->db->get('wallet');
 		if($result->num_rows() < 1){
@@ -92,7 +96,8 @@ class M_Wallet extends CI_Model
 			return $res;
 		}
 	}
-	public function add_member_wallet($id){
+	public function add_member_wallet(){
+		$id = $this->input->get('owWalletId');
 		$userId = $this->input->post('userId');
 		$memberId = $this->input->post('memberId');
 
@@ -123,7 +128,8 @@ class M_Wallet extends CI_Model
 			return $res;
 		}
 	}
-	public function get_user_to_wallet($id){
+	public function get_user_to_wallet(){
+		$id = $this->input->get('owWalletId');
 		$list = '';
 		$no = 1;
 		$list_id = $this->get_member_of_wallet($id);
@@ -174,7 +180,29 @@ class M_Wallet extends CI_Model
 		}
 		return $res;
 	}
-	public function confirm_member_wallet($id){
+	public function invited_check_wallet(){
+		$id = $this->input->get('owUserId');
+		$this->db->where('our_wallet.owIsUserActive', false);
+		$this->db->where('our_wallet.owUserId', $id);
+		$this->db->join('wallet','wallet.walletId = our_wallet.owWalletId', 'left');
+		$result = $this->db->get('our_wallet');
+		if($result){
+			$data = $result->result_array();
+			$res = [
+				'status' => true,
+				'message' => 'Berhasil menampilkan data',
+				'data' => $data,
+			];
+		}else{
+			$res = [
+				'status' => false,
+				'message' => 'Gagal akses data',
+			];
+		}
+		return $res;
+	}
+	public function confirm_member_wallet(){
+		$id = $this->input->get('owId');
 		$confirm = $this->input->post('confirm');
 		if($confirm == "Yes"){ 
 			$data['owIsUserActive']=true;
@@ -206,25 +234,5 @@ class M_Wallet extends CI_Model
 			}
 			return $res;
 		}
-	}
-	public function invited_check_wallet($id){
-		$this->db->where('our_wallet.owIsUserActive', false);
-		$this->db->where('our_wallet.owUserId', $id);
-		$this->db->join('wallet','wallet.walletId = our_wallet.owWalletId', 'left');
-		$result = $this->db->get('our_wallet');
-		if($result){
-			$data = $result->result_array();
-			$res = [
-				'status' => true,
-				'message' => 'Berhasil menampilkan data',
-				'data' => $data,
-			];
-		}else{
-			$res = [
-				'status' => false,
-				'message' => 'Gagal akses data',
-			];
-		}
-		return $res;
 	}
 }
