@@ -42,7 +42,7 @@ class M_Wallet extends CI_Model
 			$data1 = [
 				'owWalletId' => $this->db->insert_id(),
 				'owUserId' => $userId,
-				'owIsUserActive' => true,
+				'owIsUserActive' => 1,
 				'owIsAdmin' => true,
 				'owDate' => date('Y-m-d H:i:s'),
 			];
@@ -116,17 +116,34 @@ class M_Wallet extends CI_Model
 		$data = [
 			"owWalletId" => $id,
 			"owUserId" => $memberId,
-			"owIsUserActive" => false,
+			"owIsUserActive" => 0,
 			"owIsAdmin" => false,
 			"owDate" => date('Y-m-d H:i:s'),
 		];
-		if($this->db->insert('our_wallet', $data)){
-			$res = [
-				'status' => true,
-				'message' => 'Member berhasil ditambahkan',
-			];
-			return $res;
+		
+		$this->db->where('owWalletId', $id);
+		$this->db->where('owUserId', $memberId);
+		$cekUser = $this->db->get('our_wallet')->num_rows();
+		if($cekUser > 0){	
+			$this->db->where('owWalletId', $id);
+			$this->db->where('owUserId', $memberId);
+			if($this->db->update('our_wallet', $data)){
+				$res = [
+					'status' => true,
+					'message' => 'Member berhasil ditambahkan',
+				];
+				return $res;
+			}
+		} else {
+			if($this->db->insert('our_wallet', $data)){
+				$res = [
+					'status' => true,
+					'message' => 'Member berhasil ditambahkan',
+				];
+				return $res;
+			}
 		}
+
 	}
 	public function get_user_to_wallet(){
 		$id = $this->input->get('owWalletId');
@@ -161,7 +178,7 @@ class M_Wallet extends CI_Model
 		
 	}
 	public function get_member_of_wallet($id){
-		$this->db->where('our_wallet.owIsUserActive',true);
+		$this->db->where('our_wallet.owIsUserActive',1);
 		$this->db->where('our_wallet.owWalletId',$id);
 		$this->db->join('users','users.userId = our_wallet.owUserId', 'left');
 		$result = $this->db->get('our_wallet');
@@ -182,7 +199,7 @@ class M_Wallet extends CI_Model
 	}
 	public function invited_check_wallet(){
 		$id = $this->input->get('owUserId');
-		$this->db->where('our_wallet.owIsUserActive', false);
+		$this->db->where('our_wallet.owIsUserActive', 0);
 		$this->db->where('our_wallet.owUserId', $id);
 		$this->db->join('wallet','wallet.walletId = our_wallet.owWalletId', 'left');
 		$result = $this->db->get('our_wallet');
@@ -205,7 +222,7 @@ class M_Wallet extends CI_Model
 		$id = $this->input->get('owId');
 		$confirm = $this->input->post('confirm');
 		if($confirm == "Yes"){ 
-			$data['owIsUserActive']=true;
+			$data['owIsUserActive']=1;
 			$this->db->where('owId',$id);
 			if($this->db->update('our_wallet', $data)){
 				$res = [
@@ -232,6 +249,37 @@ class M_Wallet extends CI_Model
 					'message' => 'Mohon maaf, telah terjadi kesalahan',
 				];
 			}
+			return $res;
+		}
+	}
+	public function remove_member_wallet(){
+		$id = $this->input->get('owWalletId');
+		$userId = $this->input->post('userId');
+		$memberId = $this->input->post('memberId');
+
+		$this->db->where('owWalletId', $id);
+		$this->db->where('owUserId', $userId);
+		$this->db->where('owIsAdmin', true);
+		$result = $this->db->get('our_wallet')->num_rows();
+		if($result < 1){
+			$res = [
+				'status' => false,
+				'message' => 'Anda tidak memiliki hak akses admin!',
+			];
+			return $res;
+		}
+		$data = [
+			"owIsUserActive" => 2,
+			"owIsAdmin" => false,
+			"owDate" => date('Y-m-d H:i:s'),
+		];
+		$this->db->where('owWalletId', $id);
+		$this->db->where('owUserId', $memberId);
+		if($this->db->update('our_wallet', $data)){
+			$res = [
+				'status' => true,
+				'message' => 'Berhasil menghapus member',
+			];
 			return $res;
 		}
 	}
