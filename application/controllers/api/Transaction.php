@@ -15,8 +15,6 @@ class Transaction extends REST_Controller
 	public function transaction_post($id){
 		try {
 			$this->form_validation->set_data($this->post());
-			$this->form_validation->set_rules('transaction_user_id', 'User Id', 'required|trim|xss_clean');
-			$this->form_validation->set_rules('transaction_type', 'Type', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('transaction_title', 'Title', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('transaction_detail', 'Detail', 'required|trim|xss_clean');
 			$this->form_validation->set_rules('transaction_price', 'Price', 'required|trim|xss_clean');
