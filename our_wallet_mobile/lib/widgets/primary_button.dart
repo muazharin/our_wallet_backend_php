@@ -30,7 +30,7 @@ class ButtonPrimary extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Material(
-        color: bgColor ?? primaryColor,
+        color: bgColor ?? primaryBlood,
         borderRadius: BorderRadius.circular(radius ?? 16.0),
         child: InkWell(
           onTap: onTap,

@@ -11,6 +11,7 @@ class TextInput extends StatelessWidget {
     this.prefix,
     this.prefixIcon,
     this.maxLines = 1,
+    this.minLines,
     this.maxLength,
     this.obscureText = false,
     this.enabled,
@@ -32,6 +33,7 @@ class TextInput extends StatelessWidget {
   final Widget? prefix;
   final Widget? prefixIcon;
   final TextInputType? keyboardType;
+  final int? minLines;
   final int? maxLines;
   final int? maxLength;
   final bool obscureText;
@@ -59,14 +61,16 @@ class TextInput extends StatelessWidget {
         onTap: onTap,
         validator: validator,
         obscureText: obscureText,
+        minLines: minLines,
         maxLines: maxLines,
         maxLength: maxLength,
         style: GoogleFonts.montserrat(
           fontSize: 14.0,
-          color: Colors.black,
+          color: grayscaleCharcoal,
           fontWeight: FontWeight.w400,
         ),
         decoration: InputDecoration(
+          errorMaxLines: 4,
           prefix: prefix,
           prefixIcon: prefixIcon,
           suffix: suffix,
@@ -74,7 +78,7 @@ class TextInput extends StatelessWidget {
           hintText: hintText,
           hintStyle: GoogleFonts.montserrat(
             fontSize: 14.0,
-            color: hintTextColor ?? Colors.black54,
+            color: hintTextColor ?? grayscaleCharcoalLightest,
             fontWeight: FontWeight.w400,
           ),
           filled: true,
@@ -84,12 +88,12 @@ class TextInput extends StatelessWidget {
             horizontal: 8.0,
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: primaryColor),
+            borderSide: BorderSide(color: primaryWater),
             borderRadius: borderRadius ?? BorderRadius.circular(8.0),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: borderColor ?? Colors.grey[350]!,
+              color: borderColor ?? grayscaleStone,
             ),
             borderRadius: borderRadius ?? BorderRadius.circular(8.0),
           ),
