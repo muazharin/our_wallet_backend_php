@@ -1,9 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:our_wallet_mobile/pages/menu/main_menu.dart';
 import 'package:our_wallet_mobile/theme.dart';
 import 'package:our_wallet_mobile/widgets/typography.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'auth/auth_login.dart';
 
@@ -17,12 +18,23 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(Duration(seconds: 3), () async {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => AuthLoginPage()),
-          (route) => false);
-    });
+    cekLogin();
     super.initState();
+  }
+
+  cekLogin() async {
+    Timer(Duration(seconds: 3), () async {
+      SharedPreferences sp = await SharedPreferences.getInstance();
+      if (sp.getInt('id') != null) {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => MainMenu(),
+        ));
+      } else {
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => AuthLoginPage()),
+            (route) => false);
+      }
+    });
   }
 
   @override
@@ -33,16 +45,16 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(
-              "assets/svg/wallet.svg",
+            Image.asset(
+              "assets/png/wallet_red.png",
               width: 150,
               height: 150,
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 8),
             TextBold(
               text: "Our Wallet",
               size: 24,
-              color: primaryColor,
+              color: primaryBlood,
             ),
           ],
         ),
