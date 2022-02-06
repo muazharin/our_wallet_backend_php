@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "652326334438",
+    "project_id": "our-wallet-7d3a6",
+    "storage_bucket": "our-wallet-7d3a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652326334438:android:88e8d648dcb3f93ca2b027",
+        "android_client_info": {
+          "package_name": "com.muazharin.our_wallet_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652326334438-q8jl3oudj9akl56q3bth8vcdfpfeouem.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.muazharin.our_wallet_mobile",
+            "certificate_hash": "bf5b1e51875baa0a79e8a36319ab3ab5cb926553"
+          }
+        },
+        {
+          "client_id": "652326334438-tlbt1elnh0lqjb8dqouj5apruikkrubb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdJhYAeoc_nFnWChcABPmpuAfFdU4pjak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652326334438-tlbt1elnh0lqjb8dqouj5apruikkrubb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
