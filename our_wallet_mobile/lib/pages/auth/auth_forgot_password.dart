@@ -14,14 +14,14 @@ import 'package:our_wallet_mobile/widgets/snackbar.dart';
 import 'package:our_wallet_mobile/widgets/text_button.dart';
 import 'package:our_wallet_mobile/widgets/typography.dart';
 
-class AuthRegisterPage extends StatefulWidget {
-  const AuthRegisterPage({Key? key}) : super(key: key);
+class AuthForgotPassword extends StatefulWidget {
+  const AuthForgotPassword({Key? key}) : super(key: key);
 
   @override
-  _AuthRegisterPageState createState() => _AuthRegisterPageState();
+  _AuthForgotPasswordState createState() => _AuthForgotPasswordState();
 }
 
-class _AuthRegisterPageState extends State<AuthRegisterPage> {
+class _AuthForgotPasswordState extends State<AuthForgotPassword> {
   TextEditingController phonenumber = TextEditingController();
   final keySend = new GlobalKey<FormState>();
   bool isLoading = false;
@@ -50,15 +50,9 @@ class _AuthRegisterPageState extends State<AuthRegisterPage> {
         } else {
           var result = jsonDecode(value.body);
           if (result['status']) {
-            setState(() {
-              isLoading = false;
-            });
-            final snackBar = snackBarAlert('error', result['message']);
-            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          } else {
             sendOtp(
               phonenumber.text,
-              "register",
+              "forgotpassword",
               false,
               context,
               () {
@@ -72,6 +66,12 @@ class _AuthRegisterPageState extends State<AuthRegisterPage> {
                 });
               },
             );
+          } else {
+            setState(() {
+              isLoading = false;
+            });
+            final snackBar = snackBarAlert('error', result['message']);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
           }
         }
       });
@@ -90,7 +90,7 @@ class _AuthRegisterPageState extends State<AuthRegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextBold(
-                  text: "Daftar",
+                  text: "Lupa Password",
                   size: 24,
                 ),
                 Expanded(
@@ -100,7 +100,7 @@ class _AuthRegisterPageState extends State<AuthRegisterPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgPicture.asset(
-                          "assets/svg/register.svg",
+                          "assets/svg/forgot.svg",
                           width: 150,
                           height: 150,
                         ),
@@ -142,7 +142,7 @@ class _AuthRegisterPageState extends State<AuthRegisterPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextRegular(text: "Jika sudah memiliki akun? "),
+                    TextRegular(text: "Tekan tombol kembali untuk "),
                     ButtonText(
                       text: "Masuk",
                       textColor: primaryBlood,
