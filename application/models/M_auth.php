@@ -15,11 +15,23 @@ class M_Auth extends CI_Model
 			return false;
 		}
 	}
+	public function auth_check_phone_number(){
+		$phone = $this->input->post('phonenumber');
+		$this->db->or_where('userPhone', $phone);
+		$row = $this->db->get('users')->num_rows();
+		if($row > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	public function register() {
 		$username =  $this->input->post('username');
-		$password = md5($this->input->post('password'));
 		$email = $this->input->post('email');
 		$phone = $this->input->post('phone');
+		$gender = $this->input->post('gender');
+		$tgllahir = $this->input->post('tgllahir');
+		$address = $this->input->post('address');
 		if($this->check_register_data($username, $email, $phone)){
 			$res = [
 				'status' => false,
@@ -29,9 +41,11 @@ class M_Auth extends CI_Model
 		}
 		$data = [
 			'userName' =>  $username,
-			'userPassword' => $password,
 			'userEmail' => $email,
 			'userPhone' => $phone,
+			'userGender' => $gender,
+			'userTglLahir' => $tgllahir,
+			'userAddress' => $address,
 			'userCreatedAt' => date('Y-m-d H:i:s'),
 			'userUpdatedAt' => date('Y-m-d H:i:s'),
 		];
@@ -45,9 +59,33 @@ class M_Auth extends CI_Model
 					'email' => $email,
 					'phone' => $phone,
 					'photo' => '',
+					'gender' => $gender,
+					'tgllahir' => $tgllahir,
+					'address' => $address,
 					'createdAt' => date('Y-m-d H:i:s'),
 					'updatedAt' => date('Y-m-d H:i:s'),
 				],
+			];
+			return $res;
+		}else{
+			$res = [
+				'status' => false,
+				'message' => 'Mohon maaf, terjadi kesalahan!',
+			];
+			return $res;
+		}
+	}
+	public function create_password() {
+		$phone =  $this->input->get('phone');
+		$password = md5($this->input->post('password'));
+		$data = [
+			'userPassword' =>  $password,
+		];
+		$this->db->where('userPhone', $phone);
+		if ($this->db->update('users', $data)) {
+			$res = [
+				'status' => true,
+				'message' => 'Selamat, Anda telah terdaftar!',
 			];
 			return $res;
 		}else{
@@ -85,6 +123,9 @@ class M_Auth extends CI_Model
 					'email' => $data->userEmail,
 					'phone' => $data->userPhone,
 					'photo' => $data->userPhoto,
+					'gender' => $data->userGender,
+					'tgllahir' => $data->userTglLahir,
+					'address' => $data->userAddress,
 					'createdAt' => $data->userCreatedAt,
 					'updatedAt' => $data->userUpdatedAt,
 				],
