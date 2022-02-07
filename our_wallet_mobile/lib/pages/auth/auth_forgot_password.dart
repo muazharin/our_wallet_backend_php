@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:our_wallet_mobile/pages/auth/auth_otp.dart';
 import 'package:our_wallet_mobile/services/service_auth.dart';
 import 'package:our_wallet_mobile/theme.dart';
 import 'package:our_wallet_mobile/utils/firebase_otp.dart';
