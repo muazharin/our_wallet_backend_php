@@ -26,9 +26,11 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(Duration(seconds: 3), () async {
       SharedPreferences sp = await SharedPreferences.getInstance();
       if (sp.getInt('id') != null) {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => MainMenu(),
-        ));
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (context) => MainMenu(),
+            ),
+            (route) => false);
       } else {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (context) => AuthLoginPage()),
