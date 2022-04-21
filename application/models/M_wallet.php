@@ -10,6 +10,7 @@ class M_Wallet extends CI_Model
 		$this->db->join('our_wallet','our_wallet.owWalletId = wallet.walletId', 'left');
 		$this->db->where('wallet.walletIsActive', true);
 		$this->db->where('our_wallet.owUserId', $id);
+		$this->db->where('our_wallet.owIsUserActive', "1");
 		$result = $this->db->get();
 		if($result){
 			$data = $result->result_array();
@@ -147,6 +148,7 @@ class M_Wallet extends CI_Model
 	}
 	public function get_user_to_wallet(){
 		$id = $this->input->get('owWalletId');
+		$keyword = $this->input->get('keyword');
 		$list = '';
 		$no = 1;
 		$list_id = $this->get_member_of_wallet($id);
@@ -159,7 +161,15 @@ class M_Wallet extends CI_Model
 			}
 			$no++;
 		}
-		$query = "SELECT * FROM users WHERE userId NOT IN (".$list.")";
+		if($keyword == ""){
+			$query = "SELECT * FROM users WHERE userId NOT IN (".$list.")";	
+		}else{
+			$query = "SELECT * FROM users 
+			WHERE userId NOT IN (".$list.") AND 
+			(userName LIKE '%".$keyword."%' 
+			OR userEmail LIKE '%".$keyword."%' 
+			OR userPhone LIKE '%".$keyword."%')";
+		}
 		$result = $this->db->query($query);
 		if($result){
 			$data = $result->result_array();

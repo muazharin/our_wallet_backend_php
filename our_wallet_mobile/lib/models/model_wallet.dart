@@ -195,3 +195,87 @@ class MemberWalletModel {
         "userUpdatedAt": userUpdatedAt!.toIso8601String(),
       };
 }
+
+class ResultUserToWalletModel {
+  ResultUserToWalletModel({
+    this.status,
+    this.message,
+    this.data,
+  });
+
+  bool? status;
+  String? message;
+  List<UserToWalletModel>? data;
+
+  factory ResultUserToWalletModel.fromJson(Map<String, dynamic> json) =>
+      ResultUserToWalletModel(
+        status: json["status"],
+        message: json["message"],
+        data: List<UserToWalletModel>.from(
+            json["data"].map((x) => UserToWalletModel.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "status": status,
+        "message": message,
+        "data": List<dynamic>.from(data!.map((x) => x.toJson())),
+      };
+}
+
+class UserToWalletModel {
+  UserToWalletModel({
+    this.userId,
+    this.userName,
+    this.userPassword,
+    this.userEmail,
+    this.userPhone,
+    this.userPhoto,
+    this.userGender,
+    this.userTglLahir,
+    this.userAddress,
+    this.userCreatedAt,
+    this.userUpdatedAt,
+  });
+
+  String? userId;
+  String? userName;
+  String? userPassword;
+  String? userEmail;
+  String? userPhone;
+  String? userPhoto;
+  String? userGender;
+  DateTime? userTglLahir;
+  String? userAddress;
+  DateTime? userCreatedAt;
+  DateTime? userUpdatedAt;
+
+  factory UserToWalletModel.fromJson(Map<String, dynamic> json) =>
+      UserToWalletModel(
+        userId: json["userId"],
+        userName: json["userName"],
+        userPassword: json["userPassword"],
+        userEmail: json["userEmail"],
+        userPhone: json["userPhone"],
+        userPhoto: json["userPhoto"],
+        userGender: json["userGender"],
+        userTglLahir: DateTime.parse(json["userTglLahir"]),
+        userAddress: json["userAddress"],
+        userCreatedAt: DateTime.parse(json["userCreatedAt"]),
+        userUpdatedAt: DateTime.parse(json["userUpdatedAt"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "userId": userId,
+        "userName": userName,
+        "userPassword": userPassword,
+        "userEmail": userEmail,
+        "userPhone": userPhone,
+        "userPhoto": userPhoto,
+        "userGender": userGender,
+        "userTglLahir":
+            "${userTglLahir!.year.toString().padLeft(4, '0')}-${userTglLahir!.month.toString().padLeft(2, '0')}-${userTglLahir!.day.toString().padLeft(2, '0')}",
+        "userAddress": userAddress,
+        "userCreatedAt": userCreatedAt!.toIso8601String(),
+        "userUpdatedAt": userUpdatedAt!.toIso8601String(),
+      };
+}

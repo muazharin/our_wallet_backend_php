@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:our_wallet_mobile/models/model_wallet.dart';
+import 'package:our_wallet_mobile/pages/wallets/detail_wallet.dart';
 import 'package:our_wallet_mobile/widgets/typography.dart';
 import 'package:intl/intl.dart';
 
@@ -12,6 +13,7 @@ class WalletCard extends StatefulWidget {
 
 class _WalletCardState extends State<WalletCard> {
   final currencyFormatter = NumberFormat("#,##0", "id_ID");
+  WalletModel? walletModel;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -33,10 +35,21 @@ class _WalletCardState extends State<WalletCard> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextBold(
-                  text: widget.walletModel!.walletName,
-                  color: Colors.white,
-                  size: 16,
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextBold(
+                        text: widget.walletModel!.walletName,
+                        color: Colors.white,
+                        size: 14,
+                      ),
+                    ),
+                    TextBold(
+                      text: "OW Card",
+                      color: Colors.white,
+                      size: 14,
+                    ),
+                  ],
                 ),
                 Spacer(),
                 TextBold(
@@ -49,19 +62,28 @@ class _WalletCardState extends State<WalletCard> {
                 Row(
                   children: [
                     Spacer(),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white.withOpacity(0.5),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8.0,
-                          horizontal: 16,
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => DetailWallet(
+                            walletModel: widget.walletModel,
+                          ),
+                        ));
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.white.withOpacity(0.5),
                         ),
-                        child: TextBold(
-                          text: "Detail",
-                          color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8.0,
+                            horizontal: 16,
+                          ),
+                          child: TextBold(
+                            text: "Detail",
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     )

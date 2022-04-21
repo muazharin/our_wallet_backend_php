@@ -12,7 +12,7 @@ class Transaction extends REST_Controller
 		$this->load->model('M_transaction');
 	}
 
-	public function transaction_post($id){
+	public function transaction_post(){
 		try {
 			$this->form_validation->set_data($this->post());
 			$this->form_validation->set_rules('transaction_title', 'Title', 'required|trim|xss_clean');
@@ -25,7 +25,7 @@ class Transaction extends REST_Controller
 				];
 				$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
 			}else{
-				$result = $this->M_transaction->transaction($id);
+				$result = $this->M_transaction->transaction();
 				if($result['status']){
 					$message = [
 						'status' => true,
@@ -40,6 +40,31 @@ class Transaction extends REST_Controller
 					$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
 				}
 				
+			}
+		} catch (\Throwable $th) {
+			$message=[
+				'status'=>false,
+				'message' => $th->getMessage(),
+			];
+			$this->set_response($message, REST_Controller::HTTP_BAD_REQUEST);
+		}
+	}
+	public function list_transaction_get(){
+		try {
+			$result = $this->M_transaction->list_transaction();
+			if($result['status']){
+				$message = [
+					'status' => true,
+					'message' => $result['message'],
+					'data' => $result['data'],
+				];
+				$this->set_response($message, REST_Controller::HTTP_OK);
+			}else{
+				$message = [
+					'status' => false,
+					'message' => $result['message'],
+				];
+				$this->set_response($message, REST_Controller::HTTP_OK);
 			}
 		} catch (\Throwable $th) {
 			$message=[

@@ -117,7 +117,7 @@ class _AuthForgotPasswordState extends State<AuthForgotPassword> {
                         isLoading
                             ? LoadingButton()
                             : ButtonPrimary(
-                                title: "Daftar",
+                                title: "Kirim",
                                 textSize: 16,
                                 bgColor: validation()
                                     ? primaryBlood
