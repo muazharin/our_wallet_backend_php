@@ -148,7 +148,7 @@ class M_Transaction extends CI_Model
 		for ($i=0; $i <count($result) ; $i++) { 
 			$res = [
 				'tfId'=> $result[$i]['tfId'],
-				'tfFile'=> base_url()."assets/file_tr/".$result[$i]['tfFile'],
+				'tfFile'=>  base_url()."assets/file_tr/".$result[$i]['tfFile'],
 			];
 			array_push($data, $res);
 		}

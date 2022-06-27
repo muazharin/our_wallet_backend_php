@@ -24,9 +24,10 @@ date_default_timezone_set('Asia/Jakarta');
 |
 */
 // $config['base_url'] = 'http://192.168.121.247/our_wallet/';
-$root = "http://" . $_SERVER['HTTP_HOST'];
-$root = str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
-$config['base_url'] = "$root";
+$base_url = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
+$base_url .= "://". @$_SERVER['HTTP_HOST'];
+$base_url .=     str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+$config['base_url'] = $base_url;
 
 /*
 |--------------------------------------------------------------------------

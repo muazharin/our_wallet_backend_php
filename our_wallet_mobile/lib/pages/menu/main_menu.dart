@@ -55,43 +55,43 @@ class _MainMenuState extends State<MainMenu> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 // ignore: deprecated_member_use
-                title: selectedIndex == 0
-                    ? TextBold(
-                        text: 'Beranda',
-                        color: primaryBlood,
-                      )
-                    : TextRegular(
-                        text: 'Beranda',
-                        color: grayscaleStone,
-                      ),
+                // title: selectedIndex == 0
+                //     ? TextBold(
+                //         text: 'Beranda',
+                //         color: primaryBlood,
+                //       )
+                //     : TextRegular(
+                //         text: 'Beranda',
+                //         color: grayscaleStone,
+                //       ),
                 backgroundColor: Colors.white,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.history),
                 // ignore: deprecated_member_use
-                title: selectedIndex == 1
-                    ? TextBold(
-                        text: 'Riwayat',
-                        color: primaryBlood,
-                      )
-                    : TextRegular(
-                        text: 'Riwayat',
-                        color: grayscaleStone,
-                      ),
+                // title: selectedIndex == 1
+                //     ? TextBold(
+                //         text: 'Riwayat',
+                //         color: primaryBlood,
+                //       )
+                //     : TextRegular(
+                //         text: 'Riwayat',
+                //         color: grayscaleStone,
+                //       ),
                 backgroundColor: Colors.white,
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person),
                 // ignore: deprecated_member_use
-                title: selectedIndex == 2
-                    ? TextBold(
-                        text: 'Profil',
-                        color: primaryBlood,
-                      )
-                    : TextRegular(
-                        text: 'Profil',
-                        color: grayscaleStone,
-                      ),
+                // title: selectedIndex == 2
+                //     ? TextBold(
+                //         text: 'Profil',
+                //         color: primaryBlood,
+                //       )
+                //     : TextRegular(
+                //         text: 'Profil',
+                //         color: grayscaleStone,
+                //       ),
                 backgroundColor: Colors.white,
               ),
             ],
